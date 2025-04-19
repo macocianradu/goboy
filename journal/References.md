@@ -1,0 +1,1 @@
+[Opcodes Table](https://meganesulli.com/blog/game-boy-opcodes/)
