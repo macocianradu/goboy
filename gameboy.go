@@ -20,7 +20,7 @@ func main() {
 	data, err := os.ReadFile(os.Args[1])
 	check(err)
 
-	startMem := 1000
+	startMem := uint(1000)
 	memory.WriteAll(startMem, data)
 	cpu.Execute(startMem)
 }
