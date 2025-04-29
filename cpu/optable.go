@@ -8,4 +8,5 @@ var OpTable = [256]func(context op_context){
 	INCB,    //0x04
 	DECB,    //0x05
 	LD8B,    //0x06
+	RLCA,    //0x07
 }

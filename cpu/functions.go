@@ -35,14 +35,36 @@ func INCBC(context op_context) {
 // INCB Increment the contents of register B by 1.
 func INCB(context op_context) {
 	operations.INC(&context.cpu.B)
+
+	context.cpu.SetZF(context.cpu.B == byte(0))
+	context.cpu.SetNF(false)
 }
 
 // DECB Decrement the contents of register B by 1.
 func DECB(context op_context) {
 	operations.DEC(&context.cpu.B)
+
+	context.cpu.SetZF(context.cpu.B == byte(0))
+	context.cpu.SetNF(true)
 }
 
 // LD8B Load the 8-bit immediate operand d8 into register B.
 func LD8B(context op_context) {
 	operations.LD(&context.cpu.B, memory.Read8(context.addr))
+}
+
+// RLCA Rotate the contents of register A to the left. The contents of bit 7 are placed in both the CY flag and bit 0 of register A.
+func RLCA(context op_context) {
+	a7 := context.cpu.A>>7 == 1
+	operations.Shift(&context.cpu.A)
+
+	context.cpu.SetZF(false)
+	context.cpu.SetNF(false)
+	context.cpu.SetHF(false)
+	context.cpu.SetCF(a7)
+}
+
+// LDA16 Store the lower byte of stack pointer SP at the address specified by the 16-bit immediate operand a16, and store the upper byte of SP at address a16 + 1.
+func LDA16(context op_context) {
+
 }
