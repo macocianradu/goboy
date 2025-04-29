@@ -29,7 +29,7 @@ func TestDEC16(t *testing.T) {
 	r2 = byte(0x00)
 	DEC16(&r1, &r2)
 
-	expected = uint16(0x1000)
+	expected = uint16(0x10ff)
 	actual = (uint16(r1) << 8) | uint16(r2)
 	if actual != expected {
 		t.Errorf("actual %x != expected %x", actual, expected)
