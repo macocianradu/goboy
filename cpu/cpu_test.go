@@ -44,3 +44,39 @@ func TestCPU_struct_GetAndSetAF(t *testing.T) {
 		t.Errorf("actual %x != expected %x", actualAF, expectedAF)
 	}
 }
+
+func TestCPU_struct_SetCY(t *testing.T) {
+	cpu := CPU_struct{}
+	cpu.F = 0x00
+
+	cpu.SetCF(true)
+
+	expected := byte(0b00010000)
+	actual := cpu.F
+
+	if actual != expected {
+		t.Errorf("actual %x != expected %x", actual, expected)
+	}
+}
+
+func TestCPU_struct_GetCY(t *testing.T) {
+	cpu := CPU_struct{}
+	cpu.F = 0b01011000
+
+	actual := cpu.CF()
+
+	if actual != true {
+		t.Errorf("actual %v != expected %v", actual, true)
+	}
+}
+
+func TestCPU_struct_SetAndGetCY(t *testing.T) {
+	cpu := CPU_struct{}
+	cpu.SetCF(true)
+
+	actual := cpu.CF()
+
+	if actual != true {
+		t.Errorf("actual %v != expected %v", actual, true)
+	}
+}

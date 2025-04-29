@@ -37,6 +37,18 @@ func setDoubleRegis(r1 *byte, r2 *byte, value uint16) {
 	*r2 = byte(value & 0x00FF)
 }
 
+func readBit(r byte, pos uint8) bool {
+	return r>>pos&1 == 1
+}
+
+func setBit(r *byte, pos uint8, value bool) {
+	if value {
+		*r |= 1 << pos
+		return
+	}
+	*r &= ^(1 << pos)
+}
+
 func (cpu *CPU_struct) AF() uint16 {
 	return readDoubleRegis(cpu.A, cpu.F)
 }
@@ -67,4 +79,35 @@ func (cpu *CPU_struct) HL() uint16 {
 
 func (cpu *CPU_struct) SetHL(value uint16) {
 	setDoubleRegis(&cpu.H, &cpu.L, value)
+}
+
+func (cpu *CPU_struct) ZF() bool {
+	return readBit(cpu.F, 7)
+}
+
+func (cpu *CPU_struct) SetZF(value bool) {
+	setBit(&cpu.F, 7, value)
+}
+
+func (cpu *CPU_struct) NF() bool {
+	return readBit(cpu.F, 6)
+}
+
+func (cpu *CPU_struct) SetNF(value bool) {
+	setBit(&cpu.F, 6, value)
+}
+func (cpu *CPU_struct) HF() bool {
+	return readBit(cpu.F, 5)
+}
+
+func (cpu *CPU_struct) SetHF(value bool) {
+	setBit(&cpu.F, 5, value)
+}
+
+func (cpu *CPU_struct) CF() bool {
+	return readBit(cpu.F, 4)
+}
+
+func (cpu *CPU_struct) SetCF(value bool) {
+	setBit(&cpu.F, 4, value)
 }
