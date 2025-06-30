@@ -6,8 +6,8 @@ import (
 )
 
 type op_context struct {
-	cpu  CPU_struct
-	addr uint
+	cpu       CPU_struct
+	immediate byte
 }
 
 func Noop(context op_context) {
@@ -16,8 +16,8 @@ func Noop(context op_context) {
 
 // LDBCd16 Load the 2 bytes of immediate data into register pair BC.
 func LDBCd16(context op_context) {
-	operations.LD(&context.cpu.C, memory.Read8(context.addr))
-	operations.LD(&context.cpu.B, memory.Read8(context.addr+8))
+	operations.LD(&context.cpu.C, memory.Read8(uint(context.immediate)))
+	operations.LD(&context.cpu.B, memory.Read8(uint(context.immediate)+8))
 }
 
 // LDBCa Store the contents of register A in the memory location specified by register pair BC.
@@ -34,6 +34,11 @@ func INCBC(context op_context) {
 
 // INCB Increment the contents of register B by 1.
 func INCB(context op_context) {
+	if context.cpu.B&0x0F == 0x0F {
+		context.cpu.SetHF(true)
+	} else {
+		context.cpu.SetHF(false)
+	}
 	operations.INC(&context.cpu.B)
 
 	context.cpu.SetZF(context.cpu.B == byte(0))
@@ -42,6 +47,11 @@ func INCB(context op_context) {
 
 // DECB Decrement the contents of register B by 1.
 func DECB(context op_context) {
+	if context.cpu.B&0x0F == 0x00 {
+		context.cpu.SetHF(true)
+	} else {
+		context.cpu.SetHF(false)
+	}
 	operations.DEC(&context.cpu.B)
 
 	context.cpu.SetZF(context.cpu.B == byte(0))
@@ -50,7 +60,7 @@ func DECB(context op_context) {
 
 // LD8B Load the 8-bit immediate operand d8 into register B.
 func LD8B(context op_context) {
-	operations.LD(&context.cpu.B, memory.Read8(context.addr))
+	operations.LD(&context.cpu.B, memory.Read8(uint(context.immediate)))
 }
 
 // RLCA Rotate the contents of register A to the left. The contents of bit 7 are placed in both the CY flag and bit 0 of register A.
@@ -66,5 +76,6 @@ func RLCA(context op_context) {
 
 // LDA16 Store the lower byte of stack pointer SP at the address specified by the 16-bit immediate operand a16, and store the upper byte of SP at address a16 + 1.
 func LDA16(context op_context) {
-
+	operations.LDInMemory8(uint16(context.immediate), operations.GetLowerByte(context.cpu.SP))
+	operations.LDInMemory8(uint16(context.immediate+1), operations.GetHigherByte(context.cpu.SP))
 }
