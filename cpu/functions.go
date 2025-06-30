@@ -2,7 +2,6 @@ package cpu
 
 import (
 	"radu.macocian.me/goboy/cpu/operations"
-	"radu.macocian.me/goboy/memory"
 )
 
 type op_context struct {
