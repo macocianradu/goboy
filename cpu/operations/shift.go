@@ -1,5 +1,9 @@
 package operations
 
-func Shift(r1 *byte) {
+func ShiftLeft(r1 *byte) {
 	*r1 = *r1 << 1
+}
+
+func ShiftRight(r1 *byte) {
+	*r1 = *r1 >> 1
 }
