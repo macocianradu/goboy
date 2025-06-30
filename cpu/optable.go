@@ -1,7 +1,7 @@
 package cpu
 
 var OpTable = [256]func(context op_context){
-	Noop,    //0x00
+	NOOP,    //0x00
 	LDBCd16, //0x01
 	LDBCa,   //0x02
 	INCBC,   //0x03
@@ -17,4 +17,6 @@ var OpTable = [256]func(context op_context){
 	DECC,    //0x0D
 	LDCd8,   //0x0E
 	RRRCA,   //0x0F
+
+	STOP, //0x10
 }

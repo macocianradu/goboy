@@ -10,7 +10,7 @@ type op_context struct {
 }
 
 // 0x00 NOOP function
-func Noop(context op_context) {
+func NOOP(context op_context) {
 	return
 }
 
