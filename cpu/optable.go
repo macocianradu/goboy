@@ -3,7 +3,7 @@ package cpu
 var OpTable = [256]func(context op_context){
 	NOOP,    //0x00
 	LDBCd16, //0x01
-	LDBCa,   //0x02
+	LDBCA,   //0x02
 	INCBC,   //0x03
 	INCB,    //0x04
 	DECB,    //0x05
@@ -18,5 +18,20 @@ var OpTable = [256]func(context op_context){
 	LDCd8,   //0x0E
 	RRRCA,   //0x0F
 
-	STOP, //0x10
+	STOP,    //0x10
+	LDDEd16, //0x11
+	LDDEA,   //0x12
+	INCDE,   //0x13
+	INCD,    //0x14
+	DECD,    //0x15
+	LDDd8,   //0x16
+	RLA,     //0x17
+	JRs8,    //0x18
+	ADDHLDE, //0x19
+	LDADE,   //0x1A
+	DECDE,   //0x1B
+	INCE,    //0x1C
+	DECE,    //0x1D
+	LDEd8,   //0x1E
+	RRA,     //0x1F
 }

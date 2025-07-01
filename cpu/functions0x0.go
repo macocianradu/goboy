@@ -19,8 +19,8 @@ func LDBCd16(context op_context) {
 	context.cpu.SetBC(context.immediate)
 }
 
-// 0x02 LDBCa Store the contents of register A in the memory location specified by register pair BC.
-func LDBCa(context op_context) {
+// 0x02 LDBCA Store the contents of register A in the memory location specified by register pair BC.
+func LDBCA(context op_context) {
 	operations.LDInMemory8(context.cpu.BC(), context.cpu.A)
 	return
 }
@@ -105,5 +105,4 @@ func RRRCA(context op_context) {
 	context.cpu.SetNF(false)
 	context.cpu.SetHF(false)
 	context.cpu.SetCF(a0 == 1)
-
 }
